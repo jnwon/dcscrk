@@ -255,7 +255,7 @@ export default {
         this.users.forEach((user) => {
           leftTable += '<tr style="border:1px solid #ccc">'
                           + '<td style="border:none">' + user.name + '</td>'
-                          + '<td style="border:none; font-size:smaller; color:grey; width:20px">' + user.num + '건</td>'
+                          + '<td style="border:none; font-size:smaller; color:grey; width:30px">' + user.num + '건</td>'
                       + '</tr>'
         })
         leftTable += '</tbody></table>';
