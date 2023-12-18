@@ -47,7 +47,7 @@
               {{ fetchedProps }}%
             </div>
           </div>
-          <span v-if="users.length > 0" style="cursor: pointer; position:absolute; right: 15%;" onclick="alert('클립보드에 HTML소스가 복사되었습니다.\n디시인사이드 글쓰기 페이지의 HTML편집기에 붙여넣기 해주세요.')"><i class="fas fa-share-alt"></i></span>
+          <span v-if="users.length > 0" style="cursor: pointer; position:absolute; right: 15%;" onclick="window.$('#exportOption').modal('show')"><i class="fas fa-share-alt"></i></span>
           <span v-if="!fetching" style="cursor: pointer;" @click="fetchData()"><i class="fas fa-play"></i></span>
           <span v-else style="cursor: pointer;" onclick="location.reload()"><i class="fas fa-stop"></i></span>
         </div>
@@ -89,6 +89,35 @@
             </div>  
         </div>
     </div>
+
+    <div id="exportOption" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="text-align: left"> 내보내기에 포함할 데이터를 선택하세요. </h4>
+                </div>
+                <div class="modal-body" style="text-align: left;">
+                  <div class="checkbox">
+                      <label>
+                          <input type="checkbox" v-model="exportUsers">
+                          유저 집계 데이터
+                      </label>
+                  </div>
+                  <div class="checkbox">
+                      <label>
+                          <input type="checkbox" v-model="exportArticles">
+                          게시물 집계 데이터
+                      </label>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" id="export" onclick="alert('클립보드에 HTML소스가 복사되었습니다.\n디시인사이드 글쓰기 페이지의 HTML편집기에 붙여넣기 해주세요.')"> 내보내기 </button>
+                </div>
+            </div>  
+        </div>
+    </div>
   </div>
 </template>
 
@@ -121,6 +150,8 @@ export default {
       daterange: 0,
       fetchedDates: 0,
       fetchedProps: 0,
+      exportUsers: true,
+      exportArticles: true,
       tutorial: 0
     }
   },
@@ -277,20 +308,19 @@ export default {
         })
         rightTable += '</tbody></table>';
 
-        this.export = '<br><h4>실창랭킹 집계결과 | ' + this.startDt.split('T')[0] + ' ~ ' + (this.endDt? this.endDt.split('T')[0] : '오늘') + ' | ' + this.users.length + '명, ' + this.articles.length + '건</h4>'
-                    + '<br>'
-                    + '<table>'
-                      + '<tbody>'
-                        + '<tr>'
-                          + '<td style="border:none;vertical-align:top;width:40%;padding-right:10px">' + leftTable + '</td>'
-                          + '<td style="border:none;vertical-align:top">' + rightTable + '</td>'
-                        + '</tr>'
-                      + '</tbody>'
-                    + '</table>'
-                    + '<br><br>'
-
-        new Clipboard('.fa-share-alt', {
+        new Clipboard('#export', {
             text: () => {
+                this.export = '<br><h4>실창랭킹 집계결과 | ' + this.startDt.split('T')[0] + ' ~ ' + (this.endDt? this.endDt.split('T')[0] : '오늘') + ' | ' + this.users.length + '명, ' + this.articles.length + '건</h4>'
+                      + '<br>'
+                      + '<table>'
+                        + '<tbody>'
+                          + '<tr>'
+                            + (this.exportUsers? ('<td style="border:none;vertical-align:top;width:40%;padding-right:10px">' + leftTable + '</td>') : '')
+                            + (this.exportArticles? ('<td style="border:none;vertical-align:top">' + rightTable + '</td>') : '')
+                          + '</tr>'
+                        + '</tbody>'
+                      + '</table>'
+                      + '<br><br>'
                 return this.export;
             }
         });
