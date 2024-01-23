@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+import Hello from '@/components/HelloWorld.vue'
 import Scrk from '@/view/Scrk.vue'
 
 export default createRouter({
@@ -9,6 +10,11 @@ export default createRouter({
             path: '/',
             name: 'Scrk',
             component: Scrk
+        },
+        {
+            path: '/hello',
+            name: 'Hello',
+            component: Hello
         },
     ]
 })
