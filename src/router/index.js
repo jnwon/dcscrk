@@ -4,10 +4,10 @@ import Hello from '@/components/HelloWorld.vue'
 import Scrk from '@/view/Scrk.vue'
 
 export default createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/dcscrk/'),
     routes: [
         {
-            path: '/dcscrk',
+            path: '/',
             name: 'Scrk',
             component: Scrk
         },
