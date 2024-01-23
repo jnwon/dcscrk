@@ -12,7 +12,12 @@ export default createRouter({
             component: Scrk
         },
         {
-            path: '/hello',
+            path: '/dcscrk/',
+            name: 'Scrk',
+            component: Scrk
+        },
+        {
+            path: '/dcscrk/hello',
             name: 'Hello',
             component: Hello
         },
