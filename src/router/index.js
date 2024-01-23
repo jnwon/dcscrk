@@ -7,12 +7,12 @@ export default createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: '/',
+            path: '/dcscrk',
             name: 'Scrk',
             component: Scrk
         },
         {
-            path: '/hello',
+            path: '/dcscrk/hello',
             name: 'Hello',
             component: Hello
         },
