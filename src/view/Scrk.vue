@@ -184,7 +184,7 @@ export default {
         page: 1
       }
       this.checking = true;
-      await axios.post('https://218.148.35.10/api/crawl/gall/sbest', request, {validateStatus: (status) => {return status < 500}}).then((res) => {
+      await axios.post('https://tellyour.world/api/crawl/gall/sbest', request, {validateStatus: (status) => {return status < 500}}).then((res) => {
           if(res.status == 200){
             alert('갤 ID가 확인되었습니다.')
             this.isChecked = true;
@@ -229,7 +229,7 @@ export default {
           endDt: this.endDt,
           page: i++
         }
-        await axios.post('https://218.148.35.10/api/crawl/gall/sbest', request, {validateStatus: (status) => {return status < 500}}).then((res) => {
+        await axios.post('https://tellyour.world/api/crawl/gall/sbest', request, {validateStatus: (status) => {return status < 500}}).then((res) => {
             if(res.status == 200){
               var lastDate = null;
               res.data.articleList.forEach((article) => {
